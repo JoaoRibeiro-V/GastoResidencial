@@ -1,0 +1,449 @@
+/* ---------- Tokens ---------- */
+:root {
+  --color-bg: #f4f5f7;
+  --color-surface: #ffffff;
+  --color-border: #e3e6eb;
+  --color-text: #1a2233;
+  --color-text-muted: #667085;
+
+  --color-primary: #4f145c;
+  --color-primary-hover: #420f4a;
+  --color-primary-soft: #e4f1ee;
+
+  --color-income: #1b8a5a;
+  --color-income-soft: #e5f5ec;
+  --color-expense: #c1432e;
+  --color-expense-soft: #fbeae6;
+
+  --font-ui: 'Inter', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  --radius: 10px;
+  --shadow-card: 0 1px 2px rgba(20, 24, 32, 0.04), 0 1px 8px rgba(20, 24, 32, 0.04);
+}
+
+/* ---------- Layout ---------- */
+.app {
+  min-height: 125vh;
+  background: var(--color-bg);
+  color: var(--color-text);
+}
+
+.app-header {
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  padding: 30px 24px 0;
+}
+
+.app-header__inner {
+  max-width: 880px;
+  margin: 0 0;
+}
+
+.app-header__title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  margin: 0 0 4px;
+}
+
+.app-header__tagline {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  margin: 0 0 20px;
+}
+.app-header__toggle {
+  display: inline-block;
+  cursor: pointer;
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.app-header__toggle.open {
+  transform: rotate(-180deg);
+}
+
+.tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.tab {
+  border: none;
+  background: transparent;
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding: 10px 16px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s ease;
+}
+
+.tab:hover {
+  color: var(--color-text);
+}
+
+.tab--active {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.app-content {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 28px 24px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ---------- Card ---------- */
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-card);
+  padding: 20px 24px;
+}
+
+.card__title {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 16px;
+}
+
+/* ---------- Form ---------- */
+.form-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1 1 160px;
+}
+
+.form-field label {
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.form-field input,
+.form-field select {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--color-text);
+  padding: 9px 11px;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background: var(--color-surface);
+}
+
+.form-field input:focus,
+.form-field select:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -1px;
+}
+
+.form-field small {
+  color: var(--color-text-muted);
+  font-size: 12px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 14px;
+  padding: 9px 0;
+}
+
+.radio-group label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.radio-group label[data-disabled='true'] {
+  color: var(--color-text-muted);
+  cursor: not-allowed;
+}
+
+/* The Modal (background) */
+.modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 9999; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  border-radius: 8px;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, opacity 0.15s ease;
+}
+
+.btnCadastro {
+  font-family: var(--font-ui);
+  font-size: 12px;
+  font-weight: 600;
+  float: right;
+  border-radius: 4px;
+  padding: 0px 4px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s ease, opacity 0.15s ease;
+  color: var(--color-primary-soft);
+  background-color: var(--color-primary);
+}
+
+.btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--color-primary);
+  color: #fff;
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: var(--color-primary-hover);
+}
+
+.btn--ghost {
+  background: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text);
+  padding: 6px 12px;
+  font-size: 13px;
+}
+
+.btn--ghost:hover:not(:disabled) {
+  border-color: var(--color-expense);
+  color: var(--color-expense);
+}
+
+/* ---------- Table ---------- */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.table th {
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--color-text-muted);
+  font-weight: 600;
+  padding: 0 10px 10px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--color-border);
+  vertical-align: middle;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table .col-numero {
+  font-family: var(--font-mono);
+  text-align: right;
+}
+
+.table .col-acao {
+  text-align: right;
+  width: 1%;
+}
+
+/* ---------- Badge ---------- */
+.badge {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+}
+
+.badge--receita {
+  background: var(--color-income-soft);
+  color: var(--color-income);
+}
+
+.badge--despesa {
+  background: var(--color-expense-soft);
+  color: var(--color-expense);
+}
+
+/* ---------- Feedback ---------- */
+.error-message {
+  background: var(--color-expense-soft);
+  color: var(--color-expense);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13.5px;
+}
+
+.empty-state {
+  color: var(--color-text-muted);
+  font-size: 14px;
+  padding: 12px 0;
+}
+
+/* ---------- Totais ---------- */
+.totals-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.person-total {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 16px 18px;
+}
+
+.person-total__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+
+.person-total__name {
+  font-weight: 700;
+  font-size: 14.5px;
+}
+
+.person-total__saldo {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 14.5px;
+}
+
+.balance-bar {
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-border);
+  overflow: hidden;
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.balance-bar__receita {
+  background: var(--color-income);
+  height: 100%;
+}
+
+.balance-bar__despesa {
+  background: var(--color-expense);
+  height: 100%;
+}
+
+.person-total__figures {
+  display: flex;
+  gap: 20px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+}
+
+.person-total__figures strong {
+  font-family: var(--font-mono);
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.grand-total {
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius);
+  padding: 20px 24px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.grand-total__item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.grand-total__label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+}
+
+.grand-total__value {
+  font-family: var(--font-mono);
+  font-size: 19px;
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .app-header {
+    padding: 20px 16px 0;
+  }
+  .app-content {
+    padding: 20px 16px 48px;
+  }
+  .form-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
