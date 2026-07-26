@@ -1,0 +1,187 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|c:\\users\\joaogabriel\\git\\gastoresidencial\\backend\\controlegastos\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|c:\\users\\joaogabriel\\git\\gastoresidencial\\backend\\controlegastos\\services\\totalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|solutionrelative:services\\totalservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|c:\\users\\joaogabriel\\git\\gastoresidencial\\backend\\controlegastos\\data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|solutionrelative:data\\appdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|c:\\users\\joaogabriel\\git\\gastoresidencial\\backend\\controlegastos\\services\\pessoaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|solutionrelative:services\\pessoaservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|c:\\users\\joaogabriel\\git\\gastoresidencial\\backend\\controlegastos\\services\\transacaoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|solutionrelative:services\\transacaoservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|c:\\users\\joaogabriel\\git\\gastoresidencial\\backend\\controlegastos\\services\\serviceresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|solutionrelative:services\\serviceresult.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|c:\\users\\joaogabriel\\git\\gastoresidencial\\backend\\controlegastos\\model\\transacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|solutionrelative:model\\transacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|c:\\users\\joaogabriel\\git\\gastoresidencial\\backend\\controlegastos\\controlegastos.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|solutionrelative:controlegastos.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|c:\\users\\joaogabriel\\git\\gastoresidencial\\backend\\controlegastos\\model\\tipotransacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|solutionrelative:model\\tipotransacao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|c:\\users\\joaogabriel\\git\\gastoresidencial\\backend\\controlegastos\\model\\pessoa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9AD2135B-A9D2-EA74-BEA4-6F97FEE36064}|ControleGastos.csproj|solutionrelative:model\\pessoa.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TotalService.cs",
+              "DocumentMoniker": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Services\\TotalService.cs",
+              "RelativeDocumentMoniker": "Services\\TotalService.cs",
+              "ToolTip": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Services\\TotalService.cs",
+              "RelativeToolTip": "Services\\TotalService.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAowDQAAABaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-26T21:53:49.471Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "ServiceResult.cs",
+              "DocumentMoniker": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Services\\ServiceResult.cs",
+              "RelativeDocumentMoniker": "Services\\ServiceResult.cs",
+              "ToolTip": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Services\\ServiceResult.cs",
+              "RelativeToolTip": "Services\\ServiceResult.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-26T21:53:05.65Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "TransacaoService.cs",
+              "DocumentMoniker": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Services\\TransacaoService.cs",
+              "RelativeDocumentMoniker": "Services\\TransacaoService.cs",
+              "ToolTip": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Services\\TransacaoService.cs",
+              "RelativeToolTip": "Services\\TransacaoService.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAA3wEEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-26T21:49:11.532Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "PessoaService.cs",
+              "DocumentMoniker": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Services\\PessoaService.cs",
+              "RelativeDocumentMoniker": "Services\\PessoaService.cs",
+              "ToolTip": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Services\\PessoaService.cs",
+              "RelativeToolTip": "Services\\PessoaService.cs",
+              "ViewState": "AgIAADQAAAAAAAAAAADwvwAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-26T21:45:16.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Program.cs*",
+              "RelativeToolTip": "Program.cs*",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAqwBEAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-26T21:43:10.017Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AppDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Data\\AppDbContext.cs",
+              "RelativeDocumentMoniker": "Data\\AppDbContext.cs",
+              "ToolTip": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Data\\AppDbContext.cs",
+              "RelativeToolTip": "Data\\AppDbContext.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAgwB0AAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-26T21:39:19.438Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Transacao.cs",
+              "DocumentMoniker": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Model\\Transacao.cs",
+              "RelativeDocumentMoniker": "Model\\Transacao.cs",
+              "ToolTip": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Model\\Transacao.cs",
+              "RelativeToolTip": "Model\\Transacao.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-26T21:34:58.643Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ControleGastos.csproj",
+              "DocumentMoniker": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\ControleGastos.csproj",
+              "RelativeDocumentMoniker": "ControleGastos.csproj",
+              "ToolTip": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\ControleGastos.csproj",
+              "RelativeToolTip": "ControleGastos.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-07-26T21:51:40.646Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "TipoTransacao.cs",
+              "DocumentMoniker": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Model\\TipoTransacao.cs",
+              "RelativeDocumentMoniker": "Model\\TipoTransacao.cs",
+              "ToolTip": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Model\\TipoTransacao.cs",
+              "RelativeToolTip": "Model\\TipoTransacao.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-26T21:35:11.131Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Pessoa.cs",
+              "DocumentMoniker": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Model\\Pessoa.cs",
+              "RelativeDocumentMoniker": "Model\\Pessoa.cs",
+              "ToolTip": "C:\\Users\\JoaoGabriel\\Git\\GastoResidencial\\backend\\ControleGastos\\Model\\Pessoa.cs",
+              "RelativeToolTip": "Model\\Pessoa.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-26T21:33:36.602Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

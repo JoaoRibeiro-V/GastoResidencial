@@ -11,6 +11,7 @@ namespace ControleGastos.Model
         public TipoTransacao Tipo { get; set; }
         public int IdPessoa { get; set; }
         public Pessoa Pessoa { get; set; }
+        public string Descricao { get; set; } = string.Empty;
 
     }
 }

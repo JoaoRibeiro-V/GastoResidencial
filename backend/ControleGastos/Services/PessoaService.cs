@@ -1,5 +1,4 @@
 ﻿using ControleGastos.Data;
-using ControleGastos.DTO;
 using ControleGastos.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
