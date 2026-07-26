@@ -32,7 +32,7 @@ public class TransacaoService : ITransacaoService
             Tipo = tipo,
             IdPessoa = pessoaId
         };
-
+        pessoa.Transacoes.Add(transacao);
         _context.Transacoes.Add(transacao);
         await _context.SaveChangesAsync();
 

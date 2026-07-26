@@ -1,24 +1,11 @@
 import { useEffect, useMemo, useState } from 'react';
+import type { Pessoa, Transacao, TipoTransacao } from '../types';
+import { pessoasApi, transacoesApi } from '../services/api';
 
 const formatoMoeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 
 // Cadastro de transações: formulário de criação + lista.
 export function TransacoesSection() {
-  type Pessoa = {
-    id: number;
-    nome: string;
-    idade: number;
-  };
-  type Transacao = {
-    id: number;
-    descricao: string;
-    valor: number;
-    tipo: TipoTransacao;
-    pessoaId: number;
-    pessoaNome: string;
-  };
-
-  type TipoTransacao = 'despesa' | 'receita';
 
   const [transacoes, setTransacoes] = useState<Transacao[]>([]);
   const [pessoas, setPessoas] = useState<Pessoa[]>([]);
@@ -29,10 +16,30 @@ export function TransacoesSection() {
   const [erro, setErro] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const pessoaSelecionada = pessoas.find((p) => p.id === Number(pessoaId));
+  const apenasDespesaPermitida = !!pessoaSelecionada && pessoaSelecionada.idade < 18;
+
+  useEffect(() => {
+    carregarTudo();
+  }, []);
+
+  async function carregarTudo() {
+    try {
+      const [listaTransacoes, listaPessoas] = await Promise.all([
+        transacoesApi.listar(),
+        pessoasApi.listar(),
+      ]);
+      setTransacoes(listaTransacoes);
+      setPessoas(listaPessoas);
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Erro ao carregar dados.');
+    }
+  }
 
   async function handleAbrirPopup(bool: boolean) {
     setIsPopupOpen(bool);
   }
+
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setErro(null);
@@ -50,8 +57,25 @@ export function TransacoesSection() {
       setErro('Informe um valor válido, maior que zero.');
       return;
     }
-  }
 
+    setEnviando(true);
+    try {
+      await transacoesApi.criar({
+        descricao: descricao.trim(),
+        valor: valorNumero,
+        tipo,
+        pessoaId: Number(pessoaId),
+      });
+      setDescricao('');
+      setValor('');
+      setIsPopupOpen(false);
+      await carregarTudo();
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Erro ao cadastrar transação.');
+    } finally {
+      setEnviando(false);
+    }
+  }
   return (
     <>
       <section className="card">
@@ -72,7 +96,7 @@ export function TransacoesSection() {
               {transacoes.map((t) => (
                 <tr key={t.id}>
                   <td>{t.descricao}</td>
-                  <td>{t.pessoaNome}</td>
+                  <td>{t.pessoa.nome}</td>
                   <td>
                     <span className={`badge badge--${t.tipo}`}>
                       {t.tipo === 'despesa' ? 'Despesa' : 'Receita'}
@@ -88,69 +112,70 @@ export function TransacoesSection() {
       {isPopupOpen && (<section className="modal">
         <div className="modal-content">
           <h2 className="card__title">Nova transação <span className="close" onClick={() => handleAbrirPopup(false)}>&times;</span></h2>
-        <form onSubmit={handleSubmit}>
-          <div className="form-row">
-            <div className="form-field">
-              <label htmlFor="pessoa">Pessoa</label>
-              <select id="pessoa" value={pessoaId} onChange={(e) => setPessoaId(e.target.value)}>
-                <option value="">Selecione…</option>
-                {pessoas.map((p) => (
-                  <option key={p.id} value={p.id}>
-                    {p.nome} ({p.idade} anos)
-                  </option>
-                ))}
-              </select>
+          <form onSubmit={handleSubmit}>
+            <div className="form-row">
+              <div className="form-field">
+                <label htmlFor="pessoa">Pessoa</label>
+                <select id="pessoa" value={pessoaId} onChange={(e) => setPessoaId(e.target.value)}>
+                  <option value="">Selecione…</option>
+                  {pessoas.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.nome} ({p.idade} anos)
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="form-field">
+                <label htmlFor="descricao">Descrição</label>
+                <input
+                  id="descricao"
+                  value={descricao}
+                  onChange={(e) => setDescricao(e.target.value)}
+                  placeholder="Ex: Supermercado"
+                />
+              </div>
+              <div className="form-field" style={{ flex: '0 1 140px' }}>
+                <label htmlFor="valor">Valor (R$)</label>
+                <input
+                  id="valor"
+                  inputMode="decimal"
+                  value={valor}
+                  onChange={(e) => setValor(e.target.value)}
+                  placeholder="Ex: 150,00"
+                />
+              </div>
             </div>
-            <div className="form-field">
-              <label htmlFor="descricao">Descrição</label>
-              <input
-                id="descricao"
-                value={descricao}
-                onChange={(e) => setDescricao(e.target.value)}
-                placeholder="Ex: Supermercado"
-              />
-            </div>
-            <div className="form-field" style={{ flex: '0 1 140px' }}>
-              <label htmlFor="valor">Valor (R$)</label>
-              <input
-                id="valor"
-                inputMode="decimal"
-                value={valor}
-                onChange={(e) => setValor(e.target.value)}
-                placeholder="Ex: 150,00"
-              />
-            </div>
-          </div>
 
-          <div className="form-row" style={{ marginTop: 12 }}>
-            <div className="radio-group">
-              <label>
-                <input
-                  type="radio"
-                  name="tipo"
-                  checked={tipo === 'despesa'}
-                  onChange={() => setTipo('despesa')}
-                />
-                Despesa
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="tipo"
-                  checked={tipo === 'receita'}
-                  onChange={() => setTipo('receita')}
-                />
-                Receita
-              </label>
+            <div className="form-row" style={{ marginTop: 12 }}>
+              <div className="radio-group">
+                <label>
+                  <input
+                    type="radio"
+                    name="tipo"
+                    checked={tipo === 'despesa'}
+                    onChange={() => setTipo('despesa')}
+                  />
+                  Despesa
+                </label>
+                <label data-disabled={apenasDespesaPermitida || undefined}>
+                  <input
+                    disabled={apenasDespesaPermitida}
+                    type="radio"
+                    name="tipo"
+                    checked={tipo === 'receita'}
+                    onChange={() => setTipo('receita')}
+                  />
+                  Receita
+                </label>
+              </div>
+              <button className="btn btn--primary" type="submit" disabled={enviando}>
+                {enviando ? 'Salvando…' : 'Cadastrar'}
+              </button>
             </div>
-            <button className="btn btn--primary" type="submit" disabled={enviando}>
-              {enviando ? 'Salvando…' : 'Cadastrar'}
-            </button>
-          </div>
-        </form>
-        
+          </form>
+
         </div>
-        
+
       </section>
       )}
       {erro && <p className="error-message" style={{ marginTop: 12 }}>{erro}</p>}

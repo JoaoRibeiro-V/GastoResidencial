@@ -1,18 +1,26 @@
-import { useState } from 'react';
-
+import { useEffect, useState } from 'react';
+import type { Pessoa } from '../types';
+import { pessoasApi } from '../services/api';
 // Cadastro de pessoas: formulário de criação + lista com exclusão.
 export function PessoasSection() {
-  type Pessoa = {
-    id: number;
-    nome: string;
-    idade: number;
-  };
 
   const [pessoas, setPessoas] = useState<Pessoa[]>([]);
   const [nome, setNome] = useState('');
   const [idade, setIdade] = useState('');
   const [erro, setErro] = useState<string | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+
+  useEffect(() => {
+  carregarPessoas();
+}, []);
+
+async function carregarPessoas() {
+  try {
+    setPessoas(await pessoasApi.listar());
+  } catch (e) {
+    setErro(e instanceof Error ? e.message : 'Erro ao carregar pessoas.');
+  }
+}
 
   function handleAbrirPopup(bool: boolean) {
     setIsPopupOpen(bool);
@@ -24,47 +32,40 @@ export function PessoasSection() {
     }
   }
 
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setErro(null);
+  async function handleSubmit(e: React.FormEvent) {
+  e.preventDefault();
+  setErro(null);
 
-    const idadeNumero = Number(idade);
+  const idadeNumero = Number(idade);
 
-    if (!nome.trim()) {
-      setErro('Informe o nome da pessoa.');
-      return;
-    }
+  if (!nome.trim()) {
+    setErro('Informe o nome da pessoa.');
+    return;
+  }
+  if (idade === '' || Number.isNaN(idadeNumero) || idadeNumero < 0) {
+    setErro('Informe uma idade válida.');
+    return;
+  }
 
-    if (idade === '' || Number.isNaN(idadeNumero) || idadeNumero < 0) {
-      setErro('Informe uma idade válida.');
-      return;
-    }
-
-    const novaPessoa: Pessoa = {
-      id: Date.now(),
-      nome: nome.trim(),
-      idade: idadeNumero,
-    };
-
-    setPessoas((pessoasAtuais) => [
-      ...pessoasAtuais,
-      novaPessoa,
-    ]);
-
-    // Limpa o formulário
+  try {
+    await pessoasApi.criar({ nome: nome.trim(), idade: idadeNumero });
     setNome('');
     setIdade('');
-    setErro(null);
-
-    // Fecha o popup
     setIsPopupOpen(false);
+    await carregarPessoas();
+  } catch (e) {
+    setErro(e instanceof Error ? e.message : 'Erro ao cadastrar pessoa.');
   }
+}
 
-  function handleExcluir(id: number) {
-    setPessoas((pessoasAtuais) =>
-      pessoasAtuais.filter((pessoa) => pessoa.id !== id)
-    );
+  async function handleExcluir(id: number) {
+  try {
+    await pessoasApi.deletar(id);
+    await carregarPessoas();
+  } catch (e) {
+    setErro(e instanceof Error ? e.message : 'Erro ao excluir pessoa.');
   }
+}
 
   return (
     <>

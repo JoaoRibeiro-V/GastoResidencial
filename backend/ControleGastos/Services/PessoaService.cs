@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ControleGastos.Services;
-
 public interface IPessoaService
 {
     Task<Pessoa> CriarAsync(string nome, int idade);
