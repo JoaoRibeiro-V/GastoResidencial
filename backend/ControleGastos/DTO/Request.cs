@@ -17,3 +17,8 @@ public record CreateTransacaoDto(
     TipoTransacao Tipo,
     int PessoaId
 );
+
+public record UpdatePessoaDto(
+    [Required, StringLength(100)] string Nome,
+    [Range(0, 130)] int Idade
+);

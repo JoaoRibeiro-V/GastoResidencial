@@ -148,15 +148,6 @@ export function TransacoesSection() {
 
             <div className="form-row" style={{ marginTop: 12 }}>
               <div className="radio-group">
-                <label>
-                  <input
-                    type="radio"
-                    name="tipo"
-                    checked={tipo === 'despesa'}
-                    onChange={() => setTipo('despesa')}
-                  />
-                  Despesa
-                </label>
                 <label data-disabled={apenasDespesaPermitida || undefined}>
                   <input
                     disabled={apenasDespesaPermitida}
@@ -166,6 +157,15 @@ export function TransacoesSection() {
                     onChange={() => setTipo('receita')}
                   />
                   Receita
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="tipo"
+                    checked={tipo === 'despesa'}
+                    onChange={() => setTipo('despesa')}
+                  />
+                  Despesa
                 </label>
               </div>
               <button className="btn btn--primary" type="submit" disabled={enviando}>

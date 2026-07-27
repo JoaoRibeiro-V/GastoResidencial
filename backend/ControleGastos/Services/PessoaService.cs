@@ -1,4 +1,5 @@
 ﻿using ControleGastos.Data;
+using ControleGastos.DTO;
 using ControleGastos.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -6,10 +7,13 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace ControleGastos.Services;
+
 public interface IPessoaService
 {
     Task<Pessoa> CriarAsync(string nome, int idade);
-    Task<List<Pessoa>> ListarAsync();
+    Task<List<PessoaResponse>> ListarAsync();
+    Task<Pessoa> ObterPorIdAsync(int id);
+    Task<bool> AtualizarAsync(int id, string nome, int idade);
     Task<bool> DeletarAsync(int id);
 }
 
@@ -29,7 +33,7 @@ public class PessoaService : IPessoaService
         await _context.SaveChangesAsync();
 
         return null;
-        
+
     }
 
     public async Task<bool> DeletarAsync(int id)
@@ -45,11 +49,42 @@ public class PessoaService : IPessoaService
         return true;
     }
 
-    public async Task<List<Pessoa>> ListarAsync()
+    public async Task<List<PessoaResponse>> ListarAsync()
+{
+    return await _context.Pessoas
+        .Include(p => p.Transacoes)
+        .Select(p => new PessoaResponse(
+            p.Id,
+            p.Nome,
+            p.Idade,
+            p.Transacoes
+                .Select(t => new TransacaoResponse(
+                    t.Id,
+                    t.Descricao,
+                    t.Valor,
+                    t.Tipo,
+                    t.Pessoa.Nome,
+                    t.IdPessoa
+                ))
+                .ToList()
+        ))
+        .ToListAsync();
+}
+    public async Task<Pessoa> ObterPorIdAsync(int id)
     {
         return await _context.Pessoas
             .AsNoTracking()
-            .OrderBy(p => p.Id)
-            .ToListAsync();
+            .FirstOrDefaultAsync(p => p.Id == id);
+    }
+    public async Task<bool> AtualizarAsync(int id, string nome, int idade)
+    {
+        var pessoa = await _context.Pessoas.FindAsync(id);
+        if (pessoa is null) return false;
+
+        pessoa.Nome = nome;
+        pessoa.Idade = idade;
+
+        await _context.SaveChangesAsync();
+        return true;
     }
 }

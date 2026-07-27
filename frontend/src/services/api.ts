@@ -1,4 +1,4 @@
-import type { Pessoa, Transacao, TipoTransacao } from '../types';
+import type { Pessoa, Transacao, TipoTransacao, TotaisResponse, PessoaResponse } from '../types';
 const API_URL = 'http://localhost:5000/api';
 
 async function handleResponse<T>(res: Response): Promise<T> {
@@ -12,17 +12,32 @@ async function handleResponse<T>(res: Response): Promise<T> {
 }
 
 export const pessoasApi = {
-  listar: () => fetch(`${API_URL}/pessoas`).then((r) => handleResponse<Pessoa[]>(r)),
+  listar: () =>
+  fetch(`${API_URL}/pessoas`)
+    .then((r) => handleResponse<PessoaResponse[]>(r)),
 
   criar: (dto: { nome: string; idade: number }) =>
     fetch(`${API_URL}/pessoas`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(dto),
     }).then((r) => handleResponse<Pessoa>(r)),
 
+  atualizar: (id: number, dto: { nome: string; idade: number }) =>
+    fetch(`${API_URL}/pessoas/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(dto),
+    }).then((r) => handleResponse<void>(r)),
+
   deletar: (id: number) =>
-    fetch(`${API_URL}/pessoas/${id}`, { method: 'DELETE' }).then((r) => handleResponse<void>(r)),
+    fetch(`${API_URL}/pessoas/${id}`, {
+      method: 'DELETE',
+    }).then((r) => handleResponse<void>(r)),
 };
 
 export const transacoesApi = {
@@ -35,3 +50,7 @@ export const transacoesApi = {
       body: JSON.stringify(dto),
     }).then((r) => handleResponse<Transacao>(r)),
 };
+
+export const totalApi = {
+  obter: () => fetch(`${API_URL}/total`).then((r) => handleResponse<TotaisResponse>(r)),
+}

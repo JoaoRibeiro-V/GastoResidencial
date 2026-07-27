@@ -16,7 +16,6 @@ namespace ControleGastos.Controller
         public PessoasController(IPessoaService service) => _service = service;
 
         [HttpPost]
-        [HttpPost]
         public async Task<ActionResult<Pessoa>> Criar(CreatePessoaDto dto)
         {
             var pessoa = await _service.CriarAsync(dto.Nome, dto.Idade);
@@ -30,8 +29,25 @@ namespace ControleGastos.Controller
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Deletar(int id) {
-            _service.DeletarAsync(id);
+        public async Task<IActionResult> Deletar(int id)
+        {
+            await _service.DeletarAsync(id);
+            return NoContent();
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<Pessoa>> ObterPorId(int id)
+        {
+            var pessoa = await _service.ObterPorIdAsync(id);
+            if (pessoa is null) return NotFound();
+            return Ok(pessoa);
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Atualizar(int id, UpdatePessoaDto dto)
+        {
+            var atualizado = await _service.AtualizarAsync(id, dto.Nome, dto.Idade);
+            if (!atualizado) return NotFound();
             return NoContent();
         }
     }

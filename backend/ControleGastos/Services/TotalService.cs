@@ -4,25 +4,10 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ControleGastos.DTO;
 
 namespace ControleGastos.Services;
-public class PessoaTotalDto
-{
-    public int PessoaId { get; set; }
-    public string Nome { get; set; } = string.Empty;
-    public decimal TotalReceitas { get; set; }
-    public decimal TotalDespesas { get; set; }
-    public decimal Saldo { get; set; }
-}
 
-// Resposta completa da consulta de totais: cada pessoa e o total geral
-public class TotaisResponse
-{
-    public List<PessoaTotalDto> Pessoas { get; set; } = new();
-    public decimal TotalReceitasGeral { get; set; }
-    public decimal TotalDespesasGeral { get; set; }
-    public decimal SaldoGeral { get; set; }
-}
 
 public interface ITotaisService
 {
@@ -45,7 +30,7 @@ public class TotalService : ITotaisService
             .ToListAsync();
 
         // Calcula receitas, despesas e saldo de cada pessoa
-        var totaisPorPessoa = pessoas.Select(p => new PessoaTotalDto
+        var totaisPorPessoa = pessoas.Select(p => new PessoaTotal
         {
             PessoaId = p.Id,
             Nome = p.Nome,

@@ -9,23 +9,48 @@ export function PessoasSection() {
   const [idade, setIdade] = useState('');
   const [erro, setErro] = useState<string | null>(null);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [whichPopup, setWhichPopup] = useState<'create' | 'edit'>('create');
+  const [pessoaEditandoId, setPessoaEditandoId] = useState<number | null>(null);
 
   useEffect(() => {
-  carregarPessoas();
-}, []);
+    carregarPessoas();
+  }, []);
 
-async function carregarPessoas() {
-  try {
-    setPessoas(await pessoasApi.listar());
-  } catch (e) {
-    setErro(e instanceof Error ? e.message : 'Erro ao carregar pessoas.');
+  async function carregarPessoas() {
+    try {
+      setPessoas(await pessoasApi.listar());
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Erro ao carregar pessoas.');
+    }
   }
-}
 
-  function handleAbrirPopup(bool: boolean) {
+  function handleSetPopup(which: 'create' | 'edit') {
+    setWhichPopup(which);
+  }
+
+
+  function handleAbrirPopup(
+    bool: boolean,
+    which: 'create' | 'edit',
+    pessoa?: Pessoa
+  ) {
+    handleSetPopup(which);
     setIsPopupOpen(bool);
 
+    if (which === 'edit' && pessoa) {
+      setPessoaEditandoId(pessoa.id);
+      setNome(pessoa.nome);
+      setIdade(String(pessoa.idade));
+    }
+
+    if (which === 'create') {
+      setPessoaEditandoId(null);
+      setNome('');
+      setIdade('');
+    }
+
     if (!bool) {
+      setPessoaEditandoId(null);
       setNome('');
       setIdade('');
       setErro(null);
@@ -33,39 +58,59 @@ async function carregarPessoas() {
   }
 
   async function handleSubmit(e: React.FormEvent) {
-  e.preventDefault();
-  setErro(null);
+    e.preventDefault();
+    setErro(null);
 
-  const idadeNumero = Number(idade);
+    const idadeNumero = Number(idade);
 
-  if (!nome.trim()) {
-    setErro('Informe o nome da pessoa.');
-    return;
-  }
-  if (idade === '' || Number.isNaN(idadeNumero) || idadeNumero < 0) {
-    setErro('Informe uma idade válida.');
-    return;
-  }
+    if (!nome.trim()) {
+      setErro('Informe o nome da pessoa.');
+      return;
+    }
 
-  try {
-    await pessoasApi.criar({ nome: nome.trim(), idade: idadeNumero });
-    setNome('');
-    setIdade('');
-    setIsPopupOpen(false);
-    await carregarPessoas();
-  } catch (e) {
-    setErro(e instanceof Error ? e.message : 'Erro ao cadastrar pessoa.');
+    if (idade === '' || Number.isNaN(idadeNumero) || idadeNumero < 0) {
+      setErro('Informe uma idade válida.');
+      return;
+    }
+
+    try {
+      if (whichPopup === 'create') {
+        await pessoasApi.criar({
+          nome: nome.trim(),
+          idade: idadeNumero,
+        });
+      } else if (whichPopup === 'edit' && pessoaEditandoId !== null) {
+        await pessoasApi.atualizar(pessoaEditandoId, {
+          nome: nome.trim(),
+          idade: idadeNumero,
+        });
+      }
+
+      setNome('');
+      setIdade('');
+      setPessoaEditandoId(null);
+      setIsPopupOpen(false);
+
+      await carregarPessoas();
+    } catch (e) {
+      setErro(
+        e instanceof Error
+          ? e.message
+          : whichPopup === 'create'
+            ? 'Erro ao cadastrar pessoa.'
+            : 'Erro ao atualizar pessoa.'
+      );
+    }
   }
-}
 
   async function handleExcluir(id: number) {
-  try {
-    await pessoasApi.deletar(id);
-    await carregarPessoas();
-  } catch (e) {
-    setErro(e instanceof Error ? e.message : 'Erro ao excluir pessoa.');
+    try {
+      await pessoasApi.deletar(id);
+      await carregarPessoas();
+    } catch (e) {
+      setErro(e instanceof Error ? e.message : 'Erro ao excluir pessoa.');
+    }
   }
-}
 
   return (
     <>
@@ -73,7 +118,7 @@ async function carregarPessoas() {
         <h2 className="card__title">
           Pessoas cadastradas{' '}
           <a
-            onClick={() => handleAbrirPopup(true)}
+            onClick={() => handleAbrirPopup(true, 'create')}
             className="btnCadastro"
           >
             +
@@ -106,6 +151,15 @@ async function carregarPessoas() {
                     >
                       Excluir
                     </button>
+
+                  </td>
+                  <td className="col-acao">
+                    <button
+                      className="btn btn--ghost"
+                      onClick={() => handleAbrirPopup(true, 'edit', p)}
+                    >
+                      Editar
+                    </button>
                   </td>
                 </tr>
               ))}
@@ -117,63 +171,128 @@ async function carregarPessoas() {
       {isPopupOpen && (
         <section className="modal">
           <div className="modal-content">
-            <h2 className="card__title">
-              Nova pessoa
 
-              <span
-                className="close"
-                onClick={() => handleAbrirPopup(false)}
-              >
-                &times;
-              </span>
-            </h2>
+            {whichPopup === 'create' ? (
+              <div>
+                <h2 className="card__title">
+                  Nova pessoa
 
-            <form onSubmit={handleSubmit}>
-              <div className="form-row">
-                <div className="form-field">
-                  <label htmlFor="nome">Nome</label>
+                  <span
+                    className="close"
+                    onClick={() => handleAbrirPopup(false, 'create')}
+                  >
+                    &times;
+                  </span>
+                </h2>
 
-                  <input
-                    id="nome"
-                    value={nome}
-                    onChange={(e) => setNome(e.target.value)}
-                    placeholder="Ex: Maria Silva"
-                  />
-                </div>
+                <form onSubmit={handleSubmit}>
+                  <div className="form-row">
+                    <div className="form-field">
+                      <label htmlFor="nome">Nome</label>
 
-                <div
-                  className="form-field"
-                  style={{ flex: '0 1 120px' }}
-                >
-                  <label htmlFor="idade">Idade</label>
+                      <input
+                        id="nome"
+                        value={nome}
+                        onChange={(e) => setNome(e.target.value)}
+                        placeholder="Ex: Maria Silva"
+                      />
+                    </div>
 
-                  <input
-                    id="idade"
-                    type="number"
-                    min={0}
-                    value={idade}
-                    onChange={(e) => setIdade(e.target.value)}
-                    placeholder="Ex: 30"
-                  />
-                </div>
+                    <div
+                      className="form-field"
+                      style={{ flex: '0 1 120px' }}
+                    >
+                      <label htmlFor="idade">Idade</label>
 
-                <button
-                  className="btn btn--primary"
-                  type="submit"
-                >
-                  Cadastrar
-                </button>
+                      <input
+                        id="idade"
+                        type="number"
+                        min={0}
+                        value={idade}
+                        onChange={(e) => setIdade(e.target.value)}
+                        placeholder="Ex: 30"
+                      />
+                    </div>
+
+                    <button
+                      className="btn btn--primary"
+                      type="submit"
+                    >
+                      Cadastrar
+                    </button>
+                  </div>
+
+                  {erro && (
+                    <p
+                      className="error-message"
+                      style={{ marginTop: 12 }}
+                    >
+                      {erro}
+                    </p>
+                  )}
+                </form>
               </div>
+            ) : whichPopup === 'edit' ? (
+              <div>
+                <h2 className="card__title">
+                  Editar pessoa
 
-              {erro && (
-                <p
-                  className="error-message"
-                  style={{ marginTop: 12 }}
-                >
-                  {erro}
-                </p>
-              )}
-            </form>
+                  <span
+                    className="close"
+                    onClick={() => handleAbrirPopup(false, 'edit')}
+                  >
+                    &times;
+                  </span>
+                </h2>
+
+                <form onSubmit={handleSubmit}>
+                  <div className="form-row">
+                    <div className="form-field">
+                      <label htmlFor="nome-edit">Nome</label>
+
+                      <input
+                        id="nome-edit"
+                        value={nome}
+                        onChange={(e) => setNome(e.target.value)}
+                        placeholder="Ex: Maria Silva"
+                      />
+                    </div>
+
+                    <div
+                      className="form-field"
+                      style={{ flex: '0 1 120px' }}
+                    >
+                      <label htmlFor="idade-edit">Idade</label>
+
+                      <input
+                        id="idade-edit"
+                        type="number"
+                        min={0}
+                        value={idade}
+                        onChange={(e) => setIdade(e.target.value)}
+                        placeholder="Ex: 30"
+                      />
+                    </div>
+
+                    <button
+                      className="btn btn--primary"
+                      type="submit"
+                    >
+                      Salvar alterações
+                    </button>
+                  </div>
+
+                  {erro && (
+                    <p
+                      className="error-message"
+                      style={{ marginTop: 12 }}
+                    >
+                      {erro}
+                    </p>
+                  )}
+                </form>
+              </div>
+            ) : null}
           </div>
         </section>
       )}
