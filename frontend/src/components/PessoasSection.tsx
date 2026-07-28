@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import type { Pessoa } from '../types';
 import { pessoasApi } from '../services/api';
-// Cadastro de pessoas: formulário de criação + lista com exclusão.
+// cadastro de pessoas com criação edição e exclusão
 export function PessoasSection() {
 
   const [pessoas, setPessoas] = useState<Pessoa[]>([]);
@@ -16,6 +16,7 @@ export function PessoasSection() {
     carregarPessoas();
   }, []);
 
+  // busca pessoas no backend
   async function carregarPessoas() {
     try {
       setPessoas(await pessoasApi.listar());
@@ -24,11 +25,13 @@ export function PessoasSection() {
     }
   }
 
+  // define qual popup mostrar
   function handleSetPopup(which: 'create' | 'edit') {
     setWhichPopup(which);
   }
 
 
+  // abre ou fecha o popup
   function handleAbrirPopup(
     bool: boolean,
     which: 'create' | 'edit',
@@ -37,18 +40,21 @@ export function PessoasSection() {
     handleSetPopup(which);
     setIsPopupOpen(bool);
 
+    // preenche form pra edição
     if (which === 'edit' && pessoa) {
       setPessoaEditandoId(pessoa.id);
       setNome(pessoa.nome);
       setIdade(String(pessoa.idade));
     }
 
+    // limpa form pra criação
     if (which === 'create') {
       setPessoaEditandoId(null);
       setNome('');
       setIdade('');
     }
 
+    // limpa form ao fechar
     if (!bool) {
       setPessoaEditandoId(null);
       setNome('');
@@ -57,23 +63,27 @@ export function PessoasSection() {
     }
   }
 
+  // valida e envia form de pessoa
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setErro(null);
 
     const idadeNumero = Number(idade);
 
+    // valida nome preenchido
     if (!nome.trim()) {
       setErro('Informe o nome da pessoa.');
       return;
     }
 
+    // valida idade valida
     if (idade === '' || Number.isNaN(idadeNumero) || idadeNumero < 0) {
       setErro('Informe uma idade válida.');
       return;
     }
 
     try {
+      // cria ou atualiza conforme o popup
       if (whichPopup === 'create') {
         await pessoasApi.criar({
           nome: nome.trim(),
@@ -86,6 +96,7 @@ export function PessoasSection() {
         });
       }
 
+      // limpa form e recarrega lista
       setNome('');
       setIdade('');
       setPessoaEditandoId(null);
@@ -103,6 +114,7 @@ export function PessoasSection() {
     }
   }
 
+  // exclui pessoa e recarrega lista
   async function handleExcluir(id: number) {
     try {
       await pessoasApi.deletar(id);

@@ -4,7 +4,7 @@ import { pessoasApi, transacoesApi } from '../services/api';
 
 const formatoMoeda = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
 
-// Cadastro de transações: formulário de criação + lista.
+// cadastro de transações com criação e listagem
 export function TransacoesSection() {
 
   const [transacoes, setTransacoes] = useState<Transacao[]>([]);
@@ -23,6 +23,7 @@ export function TransacoesSection() {
     carregarTudo();
   }, []);
 
+  // busca transações e pessoas
   async function carregarTudo() {
     try {
       const [listaTransacoes, listaPessoas] = await Promise.all([
@@ -36,23 +37,28 @@ export function TransacoesSection() {
     }
   }
 
+  // abre ou fecha o popup
   async function handleAbrirPopup(bool: boolean) {
     setIsPopupOpen(bool);
   }
 
+  // valida e envia form de transação
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     setErro(null);
 
     const valorNumero = Number(valor.replace(',', '.'));
+    // valida descrição preenchida
     if (!descricao.trim()) {
       setErro('Informe a descrição da transação.');
       return;
     }
+    // valida pessoa selecionada
     if (!pessoaId) {
       setErro('Selecione a pessoa responsável pela transação.');
       return;
     }
+    // valida valor maior que zero
     if (!valor || Number.isNaN(valorNumero) || valorNumero <= 0) {
       setErro('Informe um valor válido, maior que zero.');
       return;
@@ -60,12 +66,14 @@ export function TransacoesSection() {
 
     setEnviando(true);
     try {
+      // envia pro backend
       await transacoesApi.criar({
         descricao: descricao.trim(),
         valor: valorNumero,
         tipo,
         pessoaId: Number(pessoaId),
       });
+      // limpa form e recarrega lista
       setDescricao('');
       setValor('');
       setIsPopupOpen(false);

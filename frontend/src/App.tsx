@@ -6,10 +6,12 @@ import { TotaisSection } from './components/TotaisSection';
 
 type Aba = 'pessoas' | 'transacoes' | 'totais';
 
+// estrutura principal com abas
 function App() {
   const [aba, setAba] = useState<Aba>('pessoas');
   const [navbarOpen, setNavbarOpen] = useState(true);
 
+  // abre ou fecha a navbar
   async function handleAbrirNavbar(bool: boolean) {
     setNavbarOpen(bool);
   }

@@ -7,6 +7,7 @@ const formatoMoeda = new Intl.NumberFormat('pt-BR', {
   currency: 'BRL',
 });
 
+// totais por pessoa com detalhe das transações
 export function TotaisSection() {
   const [totais, setTotais] = useState<TotaisResponse | null>(null);
   const [pessoas, setPessoas] = useState<PessoaResponse[]>([]);
@@ -14,6 +15,7 @@ export function TotaisSection() {
   const [erro, setErro] = useState<string | null>(null);
 
   useEffect(() => {
+    // busca totais e pessoas juntos
     Promise.all([
       totalApi.obter(),
       pessoasApi.listar(),

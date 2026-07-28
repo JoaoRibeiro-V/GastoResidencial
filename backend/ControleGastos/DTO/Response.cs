@@ -1,12 +1,15 @@
-﻿using ControleGastos.Model;
+using ControleGastos.Model;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace ControleGastos.DTO;
 
+// dados de pessoa retornados pela api
 public record PessoaResponse(int Id, string Nome, int Idade, List<TransacaoResponse> Transacoes);
+// dados de transação retornados pela api
 public record TransacaoResponse(int Id, string Descricao, decimal Valor, TipoTransacao Tipo, string PessoaNome, int IdPessoa);
+// totais de uma unica pessoa
 public class PessoaTotal
 {
     public int PessoaId { get; set; }
@@ -16,7 +19,7 @@ public class PessoaTotal
     public decimal Saldo { get; set; }
 }
 
-// Resposta completa da consulta de totais: cada pessoa e o total geral
+// resposta completa da consulta de totais
 public record TotaisResponse
 {
     public List<PessoaTotal> Pessoas { get; set; } = new();

@@ -1,4 +1,4 @@
-﻿using ControleGastos.DTO;
+using ControleGastos.DTO;
 using ControleGastos.Model;
 using ControleGastos.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,13 +8,16 @@ using System.Text;
 
 namespace ControleGastos.Controller
 {
+    // endpoints de transações
     [ApiController]
     [Route("api/[controller]")]
     public class TransacaoController : ControllerBase
     {
         private readonly ITransacaoService _service;
+        // recebe o service injetado
         public TransacaoController(ITransacaoService service) => _service = service;
 
+        // cria transação nova
         [HttpPost]
         [HttpPost]
         public async Task<ActionResult<Transacao>> Criar(CreateTransacaoDto dto)
@@ -23,6 +26,7 @@ namespace ControleGastos.Controller
             return Ok(transacao);
         }
 
+        // lista todas as transações
         [HttpGet]
         public async Task<ActionResult<List<Transacao>>> Listar()
         {
